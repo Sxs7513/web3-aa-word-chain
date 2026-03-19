@@ -1,0 +1,58 @@
+{
+  "name": "web3-aa-word-chain",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Sxs7513/web3-aa-word-chain#readme",
+  "bugs": {
+    "url": "https://github.com/Sxs7513/web3-aa-word-chain/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sxs7513/web3-aa-word-chain.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "deploy:story": "cd contracts && forge script script/DeployStory.s.sol:DeployStory --rpc-url https://sepolia.base.org --broadcast -vvvv",
+    "deploy:paymaster": "cd contracts && forge script script/DeployPaymaster.s.sol:DeployPaymaster --rpc-url https://sepolia.base.org --broadcast -vvvv",
+    "deposit:paymaster": "cd contracts && forge script script/DepositPaymaster.s.sol:DepositPaymaster --rpc-url https://sepolia.base.org --broadcast -vvvv"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@mui/material": "^5.15.20",
+    "@simplewebauthn/browser": "^10.0.0",
+    "@simplewebauthn/server": "^10.0.0",
+    "@tanstack/react-query": "^5.59.16",
+    "@vercel/analytics": "^2.0.1",
+    "@zerodev/ecdsa-validator": "^5.4.9",
+    "@zerodev/passkey-validator": "^5.6.0",
+    "@zerodev/sdk": "^5.5.7",
+    "dotenv": "^17.3.1",
+    "next": "^14.2.25",
+    "permissionless": "^0.3.4",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.21.44",
+    "wagmi": "^2.14.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.19",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.25",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "typescript": "^5.7.3"
+  }
+}

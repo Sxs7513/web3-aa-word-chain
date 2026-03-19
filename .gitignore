@@ -1,0 +1,7 @@
+node_modules
+.next
+contracts/out
+contracts/lib
+
+.env
+
