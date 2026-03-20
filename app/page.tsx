@@ -663,88 +663,89 @@ export default function Home() {
           )}
         </Box>
 
-        {/* 实时故事区域 */}
-        <Paper
-          elevation={3}
-          sx={{
-            flex: 1,
-            mb: 4,
-            p: 4,
-            overflowY: 'auto',
-            borderRadius: 4,
-            border: '1px solid #333',
-            position: 'relative',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent, #7c4dff, transparent)',
-              opacity: 0.5,
-            },
-          }}
-        >
-          <Typography variant="body1" sx={{ lineHeight: 2.5, fontSize: '1.1rem' }}>
-            {story.map((item, index) => {
-              // 本地判断是否是当前用户：简单比对公钥前缀或假设本地操作即为当前用户
-              // 由于不再存储 user 对象，我们这里简化判断：如果是刚刚提交的（乐观更新），则认为是自己
-              // 或者我们可以比对 item.authorPublicKey 是否等于 aaAddress
-              const isCurrentUser =
-                aaAddress && item.authorPublicKey.toLowerCase() === aaAddress.toLowerCase();
-              const isMeMock = item.authorPublicKey === '0xMe...';
-              // 检查是否是纯标点符号
-              const isPunctuation = /^[.,!?;:]+$/.test(item.content) || item.content === '...';
-
-              return (
-                <span
-                  key={index}
-                  style={{ marginRight: isPunctuation ? '4px' : '12px', display: 'inline' }}
-                >
-                  <Box
-                    component="span"
+                {/* 实时故事区域 */}
+                <Paper
+                    elevation={3}
                     sx={{
-                      color: isCurrentUser ? '#64ffda' : isMeMock ? '#bb86fc' : '#e0e0e0',
-                      borderBottom: isCurrentUser ? '1px solid #64ffda' : 'none',
-                      pb: 0.2, // 减小下划线间距，避免行高过大
-                      transition: 'all 0.3s ease',
-                      display: 'inline', // 关键：允许内联换行
-                      lineHeight: 1.8, // 保持良好的行高
-                      boxDecorationBreak: 'clone', // 关键：换行时保留边框/背景样式
-                      WebkitBoxDecorationBreak: 'clone', // 兼容 Webkit
-                      '&:hover': {
-                        textShadow: isCurrentUser ? '0 0 8px #64ffda' : 'none',
-                      },
+                        flex: 1,
+                        mb: 4,
+                        p: 4,
+                        overflowY: 'auto',
+                        borderRadius: 4,
+                        border: '1px solid #333',
+                        position: 'relative',
+                        '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: '2px',
+                            background: 'linear-gradient(90deg, transparent, #7c4dff, transparent)',
+                            opacity: 0.5,
+                        },
                     }}
-                  >
-                    {item.content}
-                  </Box>
-                </span>
-              );
-            })}
-            <Box
-              component="span"
-              sx={{
-                display: 'inline-block',
-                width: 10,
-                height: 20,
-                bgcolor: '#7c4dff',
-                verticalAlign: 'middle',
-                ml: 1,
-                animation: 'blink 1s infinite',
-              }}
-            />
-            <GlobalStyles
-              styles={{
-                '@keyframes blink': {
-                  '0%, 100%': { opacity: 1 },
-                  '50%': { opacity: 0 },
-                },
-              }}
-            />
-          </Typography>
-        </Paper>
+                >
+                    <Typography variant="body1" sx={{ lineHeight: 2.5, fontSize: '1.1rem' }}>
+                        {story.map((item, index) => {
+                            // 判断是否是当前用户：比对 authorPublicKey 和当前连接的 aaAddress
+                            const isCurrentUser =
+                                aaAddress && item.authorPublicKey.toLowerCase() === aaAddress.toLowerCase();
+
+                            // 检查是否是纯标点符号
+                            const isPunctuation = /^[.,!?;:]+$/.test(item.content) || item.content === '...';
+
+                            return (
+                                <span
+                                    key={index}
+                                    style={{ marginRight: isPunctuation ? '4px' : '12px', display: 'inline' }}
+                                >
+                                    <Box
+                                        component="span"
+                                        sx={{
+                                            color: isCurrentUser ? '#64ffda' : '#e0e0e0', // 只有自己的高亮为绿色，其他人的为浅灰色
+                                            borderBottom: isCurrentUser ? '2px solid #64ffda' : 'none', // 自己的词加粗下划线
+                                            fontWeight: isCurrentUser ? 'bold' : 'normal', // 自己的词加粗
+                                            textShadow: isCurrentUser ? '0 0 8px rgba(100, 255, 218, 0.4)' : 'none', // 自己的词发光
+                                            pb: 0.2,
+                                            transition: 'all 0.3s ease',
+                                            display: 'inline',
+                                            lineHeight: 1.8,
+                                            boxDecorationBreak: 'clone',
+                                            WebkitBoxDecorationBreak: 'clone',
+                                            '&:hover': {
+                                                textShadow: '0 0 8px #64ffda',
+                                                color: '#64ffda',
+                                            },
+                                        }}
+                                    >
+                                        {item.content}
+                                    </Box>
+                                </span>
+                            );
+                        })}
+                        <Box
+                            component="span"
+                            sx={{
+                                display: 'inline-block',
+                                width: 10,
+                                height: 20,
+                                bgcolor: '#7c4dff',
+                                verticalAlign: 'middle',
+                                ml: 1,
+                                animation: 'blink 1s infinite',
+                            }}
+                        />
+                        <GlobalStyles
+                            styles={{
+                                '@keyframes blink': {
+                                    '0%, 100%': { opacity: 1 },
+                                    '50%': { opacity: 0 },
+                                },
+                            }}
+                        />
+                    </Typography>
+                </Paper>
 
         {/* 操作区域 */}
         <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
