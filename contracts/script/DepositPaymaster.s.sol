@@ -16,7 +16,7 @@ contract DepositPaymaster is Script {
         console.log("Depositing to Paymaster at:", paymasterAddress);
         
         // 充值金额
-        uint256 amount = 0.005 ether;
+        uint256 amount = 0.5 ether;
         
         // 直接向 Paymaster 转账，会触发其 receive() 函数调用 entryPoint.depositTo()
         (bool success, ) = paymasterAddress.call{value: amount}("");

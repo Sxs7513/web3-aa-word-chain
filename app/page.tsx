@@ -139,7 +139,7 @@ const kernelVersion = KERNEL_V3_1;
 // 如果 permissionless 类型报错，可能需要忽略或检查版本，这里我们暂时忽略
 // @ts-ignore
 
-const storyAddress = '0x5BD1771b3177B11a50f8085BB42cb83E51C25049';
+const storyAddress = '0xda90eA889D1a8b2f190DE608a8F96fc4aA92C429';
 
 export default function Home() {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
